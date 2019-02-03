@@ -10,24 +10,28 @@ app = Flask(__name__) #create the Flask app
 
 @app.route('/physio')
 def physio():
-	url = 'https://dev.virtualearth.net/REST/v1/LocalSearch/?query=%s&userLocation=%s,%s&key=AvZXOOO79Ko1HoL-HN1VuNQU0qtL842kjYVWuh3dL1uBLawZzHb9yydtD8rqhduA' % ('physiotherapy', '47.602038', '-122.333964')
+	url = 'https://dev.virtualearth.net/REST/v1/LocalSearch/?query=%s&userLocation=%s,%s&key=AvZXOOO79Ko1HoL-HN1VuNQU0qtL842kjYVWuh3dL1uBLawZzHb9yydtD8rqhduA' % ('physiotherapy', '43.646774','-79.3949506')
 	#print(url)
 	re = requests.get(url)
 	returning = json.loads(re.text)
-	#return returning['resourceSets']['0']['estimatedTotal']
+	#return returning['resourceSets']['0']['estimatedTotal'] '43.646774','-79.3949506'
 	#print(type(returning['resourceSets'][0]['resources']))
 	#print(returning['resourceSets'][0]['resources'][0]['point']['coordinates'])
 	Dict = {}
 	for i in range(len(returning['resourceSets'][0]['resources'])-1):
 		Result_name = returning['resourceSets'][0]['resources'][i]['name']
-		Result_coordinates=returning['resourceSets'][0]['resources'][i]['point']['coordinates']
+		Result_coordinates=returning['resourceSets'][0]['resources'][i]['point']['coordinates'] #
 
 		print(Result_name)
 		Dict[str(i)] = [Result_name,Result_coordinates]
 	return json.dumps(Dict)
+
+def location():
+	ip = request.remote_addr
+
 @app.route('/dentist')
 def dentist():
-	url2 = 'https://dev.virtualearth.net/REST/v1/LocalSearch/?query=%s&userLocation=%s,%s&key=AvZXOOO79Ko1HoL-HN1VuNQU0qtL842kjYVWuh3dL1uBLawZzHb9yydtD8rqhduA' % ('dentist', '47.602038', '-122.333964')
+	url2 = 'https://dev.virtualearth.net/REST/v1/LocalSearch/?query=%s&userLocation=%s,%s&key=AvZXOOO79Ko1HoL-HN1VuNQU0qtL842kjYVWuh3dL1uBLawZzHb9yydtD8rqhduA' % ('dentist', '43.646774','-79.3949506')
 	#print(url)
 	re2 = requests.get(url2)
 	returning2 = json.loads(re2.text)
@@ -42,6 +46,59 @@ def dentist():
 		print(Result_name2)
 		Dict2[str(i)] = [Result_name2,Result_coordinates2]
 	return json.dumps(Dict2)
+@app.route('/psychologist')
+def psychologist():
+	url = 'https://dev.virtualearth.net/REST/v1/LocalSearch/?query=%s&userLocation=%s,%s&key=AvZXOOO79Ko1HoL-HN1VuNQU0qtL842kjYVWuh3dL1uBLawZzHb9yydtD8rqhduA' % ('psychologist', '43.646774','-79.3949506')
+	#print(url)
+	re = requests.get(url)
+	returning = json.loads(re.text)
+	#return returning['resourceSets']['0']['estimatedTotal']
+	#print(type(returning['resourceSets'][0]['resources']))
+	#print(returning['resourceSets'][0]['resources'][0]['point']['coordinates'])
+	Dict = {}
+	for i in range(len(returning['resourceSets'][0]['resources'])-1):
+		Result_name = returning['resourceSets'][0]['resources'][i]['name']
+		Result_coordinates=returning['resourceSets'][0]['resources'][i]['point']['coordinates']
+
+		print(Result_name)
+		Dict[str(i)] = [Result_name,Result_coordinates]
+	return json.dumps(Dict)
+
+@app.route('/clinic')
+def clinic():
+	url = 'https://dev.virtualearth.net/REST/v1/LocalSearch/?query=%s&userLocation=%s,%s&key=AvZXOOO79Ko1HoL-HN1VuNQU0qtL842kjYVWuh3dL1uBLawZzHb9yydtD8rqhduA' % ('psychologist', '43.646774','-79.3949506')
+	#print(url)
+	re = requests.get(url)
+	returning = json.loads(re.text)
+	#return returning['resourceSets']['0']['estimatedTotal']
+	#print(type(returning['resourceSets'][0]['resources']))
+	#print(returning['resourceSets'][0]['resources'][0]['point']['coordinates'])
+	Dict = {}
+	for i in range(len(returning['resourceSets'][0]['resources'])-1):
+		Result_name = returning['resourceSets'][0]['resources'][i]['name']
+		Result_coordinates=returning['resourceSets'][0]['resources'][i]['point']['coordinates']
+
+		print(Result_name)
+		Dict[str(i)] = [Result_name,Result_coordinates]
+	return json.dumps(Dict)
+
+@app.route('/doctor')
+def doctor():
+	url = 'https://dev.virtualearth.net/REST/v1/LocalSearch/?query=%s&userLocation=%s,%s&key=AvZXOOO79Ko1HoL-HN1VuNQU0qtL842kjYVWuh3dL1uBLawZzHb9yydtD8rqhduA' % ('psychologist', '43.646774','-79.3949506')
+	#print(url)
+	re = requests.get(url)
+	returning = json.loads(re.text)
+	#return returning['resourceSets']['0']['estimatedTotal']
+	#print(type(returning['resourceSets'][0]['resources']))
+	#print(returning['resourceSets'][0]['resources'][0]['point']['coordinates'])
+	Dict = {}
+	for i in range(len(returning['resourceSets'][0]['resources'])-1):
+		Result_name = returning['resourceSets'][0]['resources'][i]['name']
+		Result_coordinates=returning['resourceSets'][0]['resources'][i]['point']['coordinates']
+
+		print(Result_name)
+		Dict[str(i)] = [Result_name,Result_coordinates]
+	return json.dumps(Dict)
 
 @app.route('/form-example')
 def formexample():
