@@ -32,6 +32,7 @@
 
 <div id="reply" style="text-align: center;" class="jumbotron">
 	<p>{{reply}}</p>
+	<p>{{data1}}</p>
 </div>
 
 <div style="text-align: center;" class="jumbotron">
@@ -96,8 +97,14 @@ var DesinationDoc = angular.module('DesinationDoc', []);
   };
     $http.get("https://www.jsonstore.io/71fc6d609168087b1bd76dea68e7694b4f451bfa7bf7ab5ebb4717dd15bb65d8")
   .then(function(response) {
-    $scope.myWelcome = response.data;
-    console.log($scope.myWelcome);
+    $scope.data1 = response.data.result;
+    console.log($scope.data1);
+  });
+
+   $http.get("https://www.jsonstore.io/039e0e4f386c305904fa8f4ff8b2f4953466ffb2537854a943978dba2fa3336e")
+  .then(function(response) {
+    $scope.data2 = response.data;
+    console.log($scope.data2);
   });
 
     
