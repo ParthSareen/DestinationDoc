@@ -4,6 +4,8 @@ from flask import Flask, request #import main Flask class and request object
 import requests
 import json
 import pytest
+from twilio.rest import Client
+from twilio.twiml.voice_response import VoiceResponse, Say
 
 # 	url = 'https://dev.virtualearth.net/REST/v1/LocalSearch/?query=%s&userLocation=%s,%s&key=AvZXOOO79Ko1HoL-HN1VuNQU0qtL842kjYVWuh3dL1uBLawZzHb9yydtD8rqhduA' % (physio, longs, lat)
 
@@ -24,7 +26,7 @@ def physio():
 		Result_coordinates=returning['resourceSets'][0]['resources'][i]['point']['coordinates'] #
 
 		print(Result_name)
-		Dict[str(i)] = [Result_name,Result_coordinates]
+		Dict[i] = [Result_name,Result_coordinates]
 	returnFile = json.dumps(Dict)
 	payload = returnFile
 
@@ -125,11 +127,23 @@ def cisco():
 	}
 	re = requests.get('https://api.meraki.com/api/v0/devices/Q2GV-XLK8-MDBK/camera/analytics/recent', headers=headers)
 	returning = json.loads(re.text)
-	
-	payload = re
+
+	print(round(returning[0]['averageCount'] * 200, 2))
+	payload = str(round(returning[0]['averageCount'] * 200, 2))
 	yeet = requests.post('https://www.jsonstore.io/039e0e4f386c305904fa8f4ff8b2f4953466ffb2537854a943978dba2fa3336e', json = payload)
 
-	return re
+	account_sid = 'AC1df7f15bdc28b034b5305877e9db73d0'
+	auth_token = '8bf146a8c8d76cd51544c85ca9f49e92'
+	client = Client(account_sid, auth_token)
+	timeMinutes = payload
+	doctorNumber = '+16475265284'
+	call = client.calls.create(url='http://twimlets.com/echo?Twiml=%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3CResponse%3E%0A%20%20%20%20%3CSay%20voice%20%3D%20%22alice%22%3EHello%20I%20represent%20a%20Destination%20Doc%20patient.%20I%20am%20on%20my%20way%20to%20your%20location%2C%20please%20book%20an%20appointment%20for%20earliest%20' + timeMinutes + '%20minutes.%20Thank%20you.%3C%2FSay%3E%0A%3C%2FResponse%3E&',
+	                        to= doctorNumber,
+	                        from_='+14388004097'
+	                    )
+
+	print(call.sid)
+	return str(returning[0]['averageCount'] * 20)
 
 @app.route('/json-example')
 def jsonexample():
